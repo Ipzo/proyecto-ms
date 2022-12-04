@@ -1,0 +1,45 @@
+version: '3.3'
+services:
+  discovery-server:
+    image: ipzo/arquitectura-discovery-server-patterns:0.0.1-snapshot
+    ports:
+      - 8761:8761
+  gateway-server-:
+    image: ipzo/arquitectura-gateway-patterns:0.0.1-snapshot
+    environment:
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+    ports:
+      - 8766:8766
+  monitor:
+    image: ipzo/arquitectura-monitor-server-patterns:0.0.1-snapshot
+    ports:
+      - 8090:8090
+  postgres:
+    build: servicesData/postgresdb/
+    environment:
+      - POSTGRES_PASSWORD=secret
+    ports:
+      - 5432:5432
+    volumes:
+      - ./blockstorage/postgres:/var/lib/postgresql/data
+  rabbitmq:
+    image: rabbitmq:3.6.12-management-alpine
+    ports:
+      - "15672:15672"
+      - "5672:5672"
+      - postgres
+  api-producto:
+    image: ipzo/task-service-creditos-patterns:0.0.1-snapshot
+    environment:
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/banco_poder_creditos
+      - SPRING_DATASOURCE_USERNAME=admin
+      - SPRING_DATASOURCE_PASSWORD=admin
+      - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
+      - SPRING_BOOT_ADMIN_URL=http://monitor:8090
+      - SPRING_RABBITMQ_HOST=rabbitmq
+    ports:
+      - "8085:8085"
+    depends_on:
+      - postgres
+      - rabbitmq
+       
