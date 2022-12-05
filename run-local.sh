@@ -13,23 +13,7 @@ cd arquitectura-gateway
 ./generaImagen.sh
 cd ../
 
-cd ms-administracion
-./generaImagen.sh
-cd ../
-
-cd entity-service-seguros-guadalupe
-./generaImagen.sh
-cd ../
-
-cd entity-service-empleados
-./generaImagen.sh
-cd ../
-
-cd entity-service-clientes
-./generaImagen.sh
-cd ../
-
-cd task-service-creditos
+cd entity-service-product
 ./generaImagen.sh
 cd ../
 

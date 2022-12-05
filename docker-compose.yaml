@@ -28,10 +28,10 @@ services:
       - "15672:15672"
       - "5672:5672"
       - postgres
-  api-producto:
-    image: ipzo/task-service-creditos-patterns:0.0.1-snapshot
+  api-productos:
+    image: ipzo/entity-service-productos-patterns:0.1-snapshot
     environment:
-      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/banco_poder_creditos
+      - SPRING_DATASOURCE_URL=jdbc:postgresql://postgres:5432/lista_productos
       - SPRING_DATASOURCE_USERNAME=admin
       - SPRING_DATASOURCE_PASSWORD=admin
       - EUREKA_CLIENT_SERVICEURL_DEFAULTZONE=http://discovery-server:8761/eureka/
@@ -42,4 +42,4 @@ services:
     depends_on:
       - postgres
       - rabbitmq
-       
+
