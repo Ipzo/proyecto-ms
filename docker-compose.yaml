@@ -27,7 +27,6 @@ services:
     ports:
       - "15672:15672"
       - "5672:5672"
-      - postgres
   api-productos:
     image: ipzo/entity-service-productos-patterns:0.1-snapshot
     environment:
@@ -38,8 +37,7 @@ services:
       - SPRING_BOOT_ADMIN_URL=http://monitor:8090
       - SPRING_RABBITMQ_HOST=rabbitmq
     ports:
-      - "8085:8085"
+      - "160:8081"
     depends_on:
       - postgres
       - rabbitmq
-
